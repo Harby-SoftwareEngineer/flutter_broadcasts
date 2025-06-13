@@ -25,7 +25,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace "de.kevlatus.flutter_broadcasts
+    if (project.android.hasProperty("namespace")) {
+        namespace 'de.kevlatus.flutter_broadcasts'
+    }
     compileSdkVersion 31
 
     sourceSets {
