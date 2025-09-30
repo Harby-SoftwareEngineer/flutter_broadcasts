@@ -1,11 +1,27 @@
-include ':app'
+// New Flutter Gradle plugin DSL migration
+pluginManagement {
+    def localPropertiesFile = new File(rootDir, "local.properties")
+    def properties = new Properties()
+    assert localPropertiesFile.exists()
+    localPropertiesFile.withReader("UTF-8") { properties.load(it) }
+    def flutterSdkPath = properties.getProperty("flutter.sdk")
+    assert flutterSdkPath != null : "flutter.sdk not set in local.properties"
 
-def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
-def properties = new Properties()
+    includeBuild("${flutterSdkPath}/packages/flutter_tools/gradle")
 
-assert localPropertiesFile.exists()
-localPropertiesFile.withReader("UTF-8") { reader -> properties.load(reader) }
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    plugins {
+        id "com.android.application" version "8.4.2"
+        id "org.jetbrains.kotlin.android" version "1.9.25"
+    }
+}
 
-def flutterSdkPath = properties.getProperty("flutter.sdk")
-assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+}
+
+include(":app")
