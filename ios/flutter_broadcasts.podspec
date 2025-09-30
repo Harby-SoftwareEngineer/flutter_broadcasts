@@ -4,20 +4,19 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_broadcasts'
-  s.version          = '0.0.1'
+  s.version          = '0.5.0'
   s.summary          = 'A plugin for sending and receiving broadcasts with Android intents and iOS notifications.'
   s.description      = <<-DESC
 A plugin for sending and receiving broadcasts with Android intents and iOS notifications.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/kevlatus/flutter_broadcasts'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'flutter_broadcasts' => 'maintainer@example.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
-
-  # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  s.swift_version = '5.0'
+  s.platform = :ios, '12.0'
+  # Modern Flutter iOS build settings; i386 no longer supported; 16KB page size supported by setting minimum iOS.
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+  s.swift_version = '5.9'
 end
